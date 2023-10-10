@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rickandmortyapp/dominio/model/character/charactermodel.dart';
+import 'package:rickandmortyapp/presentation/views/CharacterInfo/characterinfo.dart';
 
 class CharacterList extends StatefulWidget {
   const CharacterList({Key? key}) : super(key: key);
@@ -56,6 +57,14 @@ class CharacterListState extends State<CharacterList> {
                   leading: Image.network(character.image),
                   title: Text(character.name),
                   subtitle: Text('Especie: ${character.species}, Estado: ${character.status}'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CharacterInfoPage(character: character),
+                      ),
+                    );
+                  },
                 );
               },
             );
