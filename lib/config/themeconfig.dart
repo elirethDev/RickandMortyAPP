@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 
 class ThemeConfig {
 
-  themeConfig() => ThemeData(
+  ThemeData themeConfig() => ThemeData(
     useMaterial3: true,
-    colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-    
+    colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
   );
 
-
+  ThemeData darkThemeConfig() => ThemeData(
+    useMaterial3: true,
+    colorScheme: const ColorScheme.dark().copyWith(
+      primary: Colors.cyan,
+    ),
+  );
 }

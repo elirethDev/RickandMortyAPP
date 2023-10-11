@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Rick and Morty App Test',
       theme: ThemeConfig().themeConfig(),
+      darkTheme: ThemeConfig().darkThemeConfig(),
       debugShowCheckedModeBanner: false,
       home: const CharacterList(),
     );
