@@ -1,7 +1,9 @@
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rickandmortyapp/dominio/model/character/charactermodel.dart';
 import 'package:rickandmortyapp/presentation/views/CharacterInfo/characterinfo.dart';
+import 'package:rickandmortyapp/shared/header/appheader.dart';
 
 class CharacterList extends StatefulWidget {
   const CharacterList({Key? key}) : super(key: key);
@@ -31,18 +33,19 @@ class CharacterListState extends State<CharacterList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: TextField(
+      appBar: CustomAppBar(
+        isMainView: true,
+        title:TextField(
           onChanged: (value) {
             characterModel.fetchCharacterByName(value);
           },
           style: const TextStyle(color: Color.fromARGB(255, 5, 5, 5)),
           decoration: const InputDecoration(
-            hintText: "Buscar personaje...",
+            hintText: "Search character...",
             hintStyle: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
           ),
         ),
-      ),
+        ),
       body: Consumer<CharacterModel>(
         builder: (context, characterModel, child) {
           if (characterModel.characters.isEmpty) {
@@ -53,18 +56,30 @@ class CharacterListState extends State<CharacterList> {
               itemCount: characterModel.characters.length,
               itemBuilder: (context, index) {
                 var character = characterModel.characters[index];
-                return ListTile(
-                  leading: Image.network(character.image),
-                  title: Text(character.name),
-                  subtitle: Text('Especie: ${character.species}, Estado: ${character.status}'),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => CharacterInfoPage(character: character),
-                      ),
-                    );
-                  },
+                return Card(
+                  color: Colors.cyan, // Cambia el color de fondo
+                  elevation: 5, // Agrega sombreado
+                  shape: RoundedRectangleBorder( // Agrega bordes redondeados
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: SizedBox(
+                    height: 85,
+                    child: ListTile(
+                      leading: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.network(character.image)),
+                      title: Text(character.name),
+                      subtitle: Text('Specie: ${character.species}, Estate: ${character.status}'),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CharacterInfoPage(character: character),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
                 );
               },
             );
